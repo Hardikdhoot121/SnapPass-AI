@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import QuantityInput from '../components/QuantityInput';
 import PrintButton from '../components/PrintButton';
 import './PrintPreviewPage.css';
@@ -12,7 +12,6 @@ import EmptyState from '../components/EmptyState';
  */
 function PrintPreviewPage() {
   const { state } = useLocation();
-  //const navigate = useNavigate();
 
   const [quantity, setQuantity] = useState(6);
   const [isGenerating, setIsGenerating] = useState(false);

@@ -122,7 +122,7 @@ function HomePage() {
 
             <img
               src="/after.png"
-              alt="Printable passport photo sheet"
+              alt="Printable passport sheet"
               className="showcase-sheet-card__image"
             />
 

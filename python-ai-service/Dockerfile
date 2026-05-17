@@ -10,6 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Placeholder for now because we don't have a python service, putting main.py as standard
-# change later after creating python service
-CMD ["python", "main.py"]
+# Temporary placeholder service until the real Python AI service is implemented.
+# Use Python's built-in HTTP server so the container starts reliably on port 8000.
+CMD ["python", "-m", "http.server", "8000"]

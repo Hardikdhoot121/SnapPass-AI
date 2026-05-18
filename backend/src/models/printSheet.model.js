@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { PHOTO_SIZE_PRESETS } from "../utils/photoPresets.js";
 
 const printSheetSchema = new mongoose.Schema(
   {
@@ -6,7 +7,6 @@ const printSheetSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      index: true,
     },
     processedImage: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +16,7 @@ const printSheetSchema = new mongoose.Schema(
     },
     photoSizePreset: {
       type: String,
-      enum: ["35x45", "51x51", "33x48", "40x60", "2x2in"],
+      enum: PHOTO_SIZE_PRESETS,
       required: true,
     },
     quantity: {

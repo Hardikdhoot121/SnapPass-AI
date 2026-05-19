@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Upload, Sparkles, Printer, Settings } from 'lucide-react';
+import { ExternalLink, Heart, ShieldCheck, Globe } from 'lucide-react';
 import './Footer.css';
 
 /**
@@ -40,30 +40,36 @@ function Footer() {
             </p>
           </div>
 
-          <div className="footer__nav-group">
+          <div className="footer__info-grid">
 
-            <nav className="footer__links" aria-label="Footer navigation">
-              <Link to="/" className="footer__link">
-                <Home size={18} className="footer__link-icon" />
-                Home
-              </Link>
-              <Link to="/upload" className="footer__link">
-                <Upload size={18} className="footer__link-icon" />
-                Upload Photo
-              </Link>
-              <Link to="/editor" className="footer__link">
-                <Sparkles size={18} className="footer__link-icon" />
-                AI Editor
-              </Link>
-              <Link to="/print-preview" className="footer__link">
-                <Printer size={18} className="footer__link-icon" />
-                Print Preview
-              </Link>
-              <Link to="/admin" className="footer__link">
-                <Settings size={18} className="footer__link-icon" />
-                Admin Dashboard
-              </Link>
-            </nav>
+            <div className="footer__info-card">
+              <ShieldCheck className="footer__info-icon" size={20} />
+              <div>
+                <h4>Privacy First</h4>
+                <p>Your photos stay secure and are processed safely.</p>
+              </div>
+            </div>
+
+            <div className="footer__info-card">
+              <Globe className="footer__info-icon" size={20} />
+              <div>
+                <h4>Open Source</h4>
+                <p>Built transparently for developers and creators.</p>
+              </div>
+            </div>
+
+            <div className="footer__socials">
+              <a
+                href="https://github.com/souma9830/SnapPass-AI"
+                target="_blank"
+                rel="noreferrer"
+                className="footer__social-link"
+              >
+                <ExternalLink size={18} />
+                GitHub
+              </a>
+            </div>
+
           </div>
         </div>
 

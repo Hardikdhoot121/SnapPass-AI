@@ -5,6 +5,13 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import { generateSheet } from '../services/photoService';
 import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import QuantityInput from '../components/QuantityInput';
+import PrintButton from '../components/PrintButton';
+import './PrintPreviewPage.css';
+import EmptyState from '../components/EmptyState';
+import { calculatePasswordStrength } from '../utils/passwordStrength';
 
 const PrintPreviewPage = () => {
   const { state } = useLocation();
@@ -13,6 +20,22 @@ const PrintPreviewPage = () => {
   const [sheetUrl, setSheetUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [password, setPassword] = useState('');
+  const [strength, setStrength] = useState(0);
+  const [strengthLabel, setStrengthLabel] = useState('');
+
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    const result =
+      calculatePasswordStrength(password);
+
+    setStrength(result.score);
+    setStrengthLabel(result.label);
+  }, 100);
+
+  return () => clearTimeout(timer);
+}, [password]);
 
   const fetchSheet = async () => {
     setError(null);
@@ -62,6 +85,59 @@ const PrintPreviewPage = () => {
             sheetUrl={sheetUrl}
             onRegenerate={fetchSheet}
             disabled={!sheetUrl}
+
+          <hr className="divider" />
+
+          <div className="password-section">
+  <label className="print-info-label">
+    Secure Access Password
+  </label>
+
+  <input
+    type="password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    placeholder="Enter secure password"
+    className="password-input"
+  />
+
+  <div className="password-meter">
+    <div
+      className={`password-meter__fill ${
+        strength <= 1
+          ? 'password-meter__fill--weak'
+          : strength === 2
+          ? 'password-meter__fill--medium'
+          : strength === 3
+          ? 'password-meter__fill--strong'
+          : 'password-meter__fill--excellent'
+      }`}
+      style={{
+        width: `${(strength / 4) * 100}%`,
+      }}
+    />
+  </div>
+
+  <span
+    aria-live="polite"
+    className={`password-feedback ${
+      strength <= 1
+        ? 'password-feedback--weak'
+        : strength === 2
+        ? 'password-feedback--medium'
+        : strength === 3
+        ? 'password-feedback--strong'
+        : 'password-feedback--excellent'
+    }`}
+  >
+    {strengthLabel}
+  </span>
+</div>
+
+          <PrintButton
+            onClick={handleGenerateSheet}
+            isLoading={isGenerating}
+            disabled={isGenerating || strength === 0}
           />
         </>
       )}

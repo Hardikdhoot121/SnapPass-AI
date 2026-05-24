@@ -7,7 +7,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -45,7 +55,6 @@ function Navbar() {
 
         {/* CTA */}
         <div className="navbar__actions">
-
           <button 
             className="navbar__theme-toggle" 
             onClick={toggleTheme}
@@ -53,8 +62,8 @@ function Navbar() {
           >
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
-
-          <Link to="/upload" className="navbar__cta">
+          
+          <Link to="/upload" className="btn btn-primary navbar__cta">
             Get Started
           </Link>
           <button
